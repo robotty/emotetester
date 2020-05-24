@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Emote tester</title>
+
+    <style>
+      /* http://meyerweb.com/eric/tools/css/reset/ 
+		   v2.0 | 20110126
+		   License: none (public domain)
+		*/
+
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+      }
+      /* HTML5 display-role reset for older browsers */
+      article,
+      aside,
+      details,
+      figcaption,
+      figure,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      section {
+        display: block;
+      }
+      body {
+        line-height: 1;
+      }
+      ol,
+      ul {
+        list-style: none;
+      }
+      blockquote,
+      q {
+        quotes: none;
+      }
+      blockquote:before,
+      blockquote:after,
+      q:before,
+      q:after {
+        content: "";
+        content: none;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+    </style>
+    <style>
+      html,
+      body {
+        height: 100%;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        padding: 8px;
+        background-color: #f7f7f8;
+        font-family: Roobert, Helvetica Neue, Helvetica, Arial, sans-serif;
+
+        flex-direction: column;
+      }
+
+      .chat-container {
+        display: flex;
+        flex-grow: 1;
+        flex-wrap: wrap;
+        margin-left: -8px;
+        margin-right: -8px;
+      }
+
+      .chat-unit {
+        flex-grow: 1;
+        padding: 8px;
+      }
+	  
+	  .submit-button {
+		margin-left: 8px;
+	  }
+	 
+	  
+	  form {
+		display: flex;
+		max-width: 1000px;
+		align-items: baseline;
+	}
+	
+	#emote-url-input {
+	flex-grow: 1;
+	margin-left: 8px;
+	}
+	
+    </style>
+  </head>
+  <body>
+    <form id="emote-link-form" method="get">Enter emote link: <input id="emote-url-input" type="url" required="true" name="emote_url"/><button class="submit-button">Submit</button></form>
+    <div class="chat-container">
+      <iframe class="chat-unit" data-dark="false"></iframe>
+      <iframe class="chat-unit" data-dark="true"></iframe>
+    </div>
+
+	<script>
+		const searchParams = new URLSearchParams(window.location.search);
+		
+		if (searchParams.has("emote_url")) {
+			const emoteUrl = searchParams.get("emote_url");
+			document.getElementById("emote-url-input").value = emoteUrl;
+			
+			let frames = document.querySelectorAll(".chat-unit");
+			for (const frame of frames) {
+				const darkMode = frame.getAttribute("data-dark");
+			
+				frame.setAttribute("src", `frame.html?dark=${darkMode}&emote_url=${encodeURIComponent(emoteUrl)}`)
+			}
+		}
+	</script>
+	
+  </body>
+</html>
